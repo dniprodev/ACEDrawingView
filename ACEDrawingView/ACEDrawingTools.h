@@ -89,3 +89,12 @@
 @property (nonatomic, assign) BOOL fill;
 
 @end
+
+#pragma mark -
+
+@interface ACETextTool : NSObject<ACEDrawingTool>
+
+@property ( nonatomic, strong ) NSString* text;
+@property ( nonatomic, assign ) CGFloat fontSize;
+
+@end

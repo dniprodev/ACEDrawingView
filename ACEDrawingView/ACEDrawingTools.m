@@ -277,3 +277,43 @@ CGPoint midPoint(CGPoint p1, CGPoint p2)
 }
 
 @end
+
+
+#pragma mark - ACETextTool
+
+@interface ACETextTool ()
+
+@property (nonatomic, assign) CGPoint firstPoint;
+
+@end
+
+@implementation ACETextTool
+
+@synthesize lineColor = _lineColor;
+@synthesize lineAlpha = _lineAlpha;
+@synthesize lineWidth = _lineWidth;
+
+- (void)setInitialPoint:(CGPoint)firstPoint
+{
+   self.firstPoint = firstPoint;
+}
+
+- (void)moveFromPoint:(CGPoint)startPoint toPoint:(CGPoint)endPoint
+{
+}
+
+- (void)draw
+{
+   NSDictionary *attributes = @{ NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:self.fontSize],
+                                 NSForegroundColorAttributeName: self.lineColor };
+
+   NSAttributedString *attr_string_ = [[NSAttributedString alloc] initWithString:self.text attributes:attributes];
+
+   CGRect boundingRect = [ attr_string_ boundingRectWithSize: CGSizeMake(MAXFLOAT, MAXFLOAT) options: 0 context: nil ];
+   CGPoint drawPoint = CGPointMake(self.firstPoint.x, self.firstPoint.y - CGRectGetHeight(boundingRect) / 2.f);
+
+   [ attr_string_ drawAtPoint:drawPoint ];
+}
+
+@end
+

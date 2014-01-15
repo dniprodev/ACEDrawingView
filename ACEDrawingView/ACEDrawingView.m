@@ -168,6 +168,19 @@
         {
             return ACE_AUTORELEASE([ACEDrawingEraserTool new]);
         }
+        case ACEDrawingToolTypeText:
+        {
+           ACETextTool *tool = ACE_AUTORELEASE([ACETextTool new]);
+           if ( [self.delegate respondsToSelector: @selector(drawingViewTextForDrawing:)] )
+           {
+              tool.text = [self.delegate drawingViewTextForDrawing: self ];
+           }
+           if ( [self.delegate respondsToSelector: @selector(drawingViewDrawingTextFontSize:)] )
+           {
+              tool.fontSize = [self.delegate drawingViewDrawingTextFontSize: self];
+           }
+           return tool;
+        }
     }
 }
 
@@ -231,6 +244,9 @@
     // update the image
     [self updateCacheImage:NO];
     
+    // clear the current tool
+    self.currentTool = nil;
+    
     // clear the redo queue
     [self.bufferArray removeAllObjects];
     
@@ -238,9 +254,6 @@
     if ([self.delegate respondsToSelector:@selector(drawingView:didEndDrawUsingTool:)]) {
         [self.delegate drawingView:self didEndDrawUsingTool:self.currentTool];
     }
-    
-    // clear the current tool
-    self.currentTool = nil;
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event

@@ -34,7 +34,8 @@ typedef enum {
     ACEDrawingToolTypeRectagleFill,
     ACEDrawingToolTypeEllipseStroke,
     ACEDrawingToolTypeEllipseFill,
-    ACEDrawingToolTypeEraser
+    ACEDrawingToolTypeEraser,
+    ACEDrawingToolTypeText
 } ACEDrawingToolType;
 
 @protocol ACEDrawingViewDelegate, ACEDrawingTool;
@@ -77,5 +78,8 @@ typedef enum {
 @optional
 - (void)drawingView:(ACEDrawingView *)view willBeginDrawUsingTool:(id<ACEDrawingTool>)tool;
 - (void)drawingView:(ACEDrawingView *)view didEndDrawUsingTool:(id<ACEDrawingTool>)tool;
+
+- (NSString*)drawingViewTextForDrawing:(ACEDrawingView *)view_;
+- (CGFloat)drawingViewDrawingTextFontSize:(ACEDrawingView *)view_;
 
 @end
